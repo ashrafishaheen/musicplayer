@@ -17,6 +17,13 @@ h1 {
     border: 0;
     margin: 0;
 }
+svg{
+
+position: absolute;
+top: 0px;
+display: none;
+
+}
 
 .wrapper {
     height: 100%;
@@ -195,6 +202,21 @@ table.dataTable tbody tr {
 #songs_info {
     display: none;
 }
+button{
+    height:30px;
+    width: 40px;
+    border: 0;
+    border-radius: 4px;
+    background-color: #CD5C5C;
+}
+#name-input{
+    height: 30px;
+    width: 150px;
+    text-align: center;
+    border:0;
+    border-radius: 4px;
+}
+
 
 #songs_filter {
     color: transparent;

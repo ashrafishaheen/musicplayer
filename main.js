@@ -9,6 +9,7 @@ var equal = 0;
 $('.welcome-screen button').on('click', function() {
         var name = $('#name-input').val();
         if (name.length > 2) {        //input should be more than 2 char.
+            $('#animation').addClass('animated bounceOutLeft');
             var message = "Welcome, " + name;
             $('.main .user-name').text(message);
             $('.welcome-screen').addClass('hidden');   
@@ -17,6 +18,9 @@ $('.welcome-screen button').on('click', function() {
             $('#name-input').addClass('error');
         }
     });
+  
+  
+
 //  objects starts from here
 var songs = [{
         'name': 'Badri Ki Dulhania (Title Track)',
@@ -311,6 +315,40 @@ changeSong();
 
 
     
+
                 }
+$(".fa-bar-chart").click(function(){
+
+$(this).toggleClass("active");
+if(equal==0)
+{
+
+equal=1;
+
+$("svg").css("display","inline-block");
+$(".content").css("display","none");
+$(".contain").css("display","inline-block");
+$(".contain").css("background","black");
+
+
+}
+else{
+equal=0;
+$("svg").css("display","none");
+$(".content").css("display","inline-block");
+$(".contain").css("display","none");
+
+
+
+
+}
+
+
+
+
+
+
+
+});
 
       

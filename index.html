@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title> Song App</title>
     <link rel="stylesheet" type="text/css" href="font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="animate.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="main.css">
     
@@ -17,8 +18,10 @@
             <h1> Welcome to Songify </h1>
             <h3> Enter name to access your account </h3>
             <div class="input-wrapper">
-                <input type="text" placeholder="Name" id="name-input">
-                <button> Go </button>
+                <input type="text" placeholder="Name" name="username" id="name-input">
+
+                
+                <button id="animate"> Go </button>
             </div>
         </section>
         <div class="main">
@@ -118,6 +121,7 @@
       <i class="fa fa-play clickable play-icon" aria-hidden="true"></i>
       <i class="fa fa-step-forward clickable" aria-hidden="true"></i>
       <i class="fa fa-repeat disabled clickable" aria-hidden="true"></i>
+      <i class="fa fa-bar-chart clickable active" aria-hidden="true"></i>
       
     </div>
                     <div class="progress-wrapper">
@@ -131,8 +135,12 @@
             </footer>
         </div>
     </div>
-     <script src="jquery.js"></script>
+      <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
      <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+     
+
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+         <script src="visual.js"></script>
 <script src="main.js"></script>
 </body>
 

@@ -195,13 +195,7 @@ display: none;
 .current-song-album {
     margin-top: 0.4rem;
 }
-            /*DataTables overrides*/
-table.dataTable tbody tr {
-    background-color: initial;
-}
-#songs_info {
-    display: none;
-}
+
 button{
     height:30px;
     width: 40px;
@@ -233,4 +227,45 @@ button{
 
 .fa.disabled {
     color: gray;
+}
+ /*DataTables overrides*/
+table.dataTable tbody tr {
+    background-color: initial;
+}
+#songs_info {
+    display: none;
+}
+#songs_filter {
+    color: transparent;
+}
+#songs_filter input {
+    width: 400px;
+    margin-bottom: 1rem;
+    font-size: 16px;
+}
+#fill{
+
+width: 30%;
+background: red;
+
+}
+.active{
+
+color: grey;
+
+}
+svg{
+position: absolute;
+top: 249px;
+left: 100px;
+display: none;
+}
+.contain{
+
+height: 499px;
+width: 100%;
+display: none;
+
+
+
 }

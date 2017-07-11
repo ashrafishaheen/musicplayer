@@ -6,18 +6,32 @@ var Playingnumber = 0;
 var shuffle=0;
 var equal = 0;
 
-$('.welcome-screen button').on('click', function() {
+
+ $('.welcome-screen button').on('click', function() {
+
+
+ 
+var animationName = 'animated bounce';
+ 	var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+ 	 $('.ani').addClass(animationName).one(animationEnd,function() {
+ 	 	$(this).removeClass(animationName);
+
+ 	 });
+
         var name = $('#name-input').val();
-        if (name.length > 2) {        //input should be more than 2 char.
-            $('#animation').addClass('animated bounceOutLeft');
+        if (name.length > 2) 
+
+        {
             var message = "Welcome, " + name;
+
             $('.main .user-name').text(message);
-            $('.welcome-screen').addClass('hidden');   
+            $('.welcome-screen').addClass('hidden');
             $('.main').removeClass('hidden');
         } else {
             $('#name-input').addClass('error');
         }
     });
+
   
   
 
@@ -281,19 +295,17 @@ changeSong();
 
 
 })
+
             
                       
             window.onload = function() {
-               
+                
             updateCurrentTime(); 
             setInterval(function() {
             updateCurrentTime();
             },1000);
            
-               setInterval(function() {
-        updateTimer();
-    }, 1000);
- 
+              
 
                  
                  for(var i =0; i < songs.length;i++) { 
@@ -310,11 +322,8 @@ changeSong();
     }$('#songs').DataTable({
         paging: false
     });     
-
-
-
-
     
+  
 
                 }
 $(".fa-bar-chart").click(function(){

@@ -28,7 +28,7 @@ display: none;
 .wrapper {
     height: 100%;
     width: 100%;
-    background-color: #BBB;
+    background-color: #1A1B1D;
 }
 
 .welcome-screen {
@@ -38,6 +38,8 @@ display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: #46B9FF;
+    font-family: 'Playfair Display';
 }
 
 .main {
@@ -47,6 +49,8 @@ display: none;
     flex-direction: column;
     color: white;
     background-color: #1f1f1f;
+    position: absolute;
+    top: 0;
 }
 
 .main header {
@@ -55,6 +59,9 @@ display: none;
     padding: 1rem;
     color: #FFF;
 }
+::-webkit-scrollbar {
+    display:none;
+    }
 
 .main .content {
     flex:1;
@@ -232,6 +239,7 @@ button{
  /*DataTables overrides*/
 table.dataTable tbody tr {
     background-color: initial;
+
 }
 #songs_info {
     display: none;
@@ -267,6 +275,10 @@ height: 499px;
 width: 100%;
 display: none;
 
+    }
+.animation{
 
-
+animation-duration: 0.5s;
+  animation-name: bounceOut;
+    
 }

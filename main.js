@@ -6,17 +6,12 @@ var Playingnumber = 0;
 var shuffle=0;
 var equal = 0;
 
-
- $('.welcome-screen button').on('click', function() {
+// no use of this right now.
+ /* $('.welcome-screen button').on('click', function() {
 
 
  
-var animationName = 'animated bounce';
- 	var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
- 	 $('.ani').addClass(animationName).one(animationEnd,function() {
- 	 	$(this).removeClass(animationName);
 
- 	 });
 
         var name = $('#name-input').val();
         if (name.length > 2) 
@@ -30,7 +25,7 @@ var animationName = 'animated bounce';
         } else {
             $('#name-input').addClass('error');
         }
-    });
+    });  */
 
   
   
@@ -115,14 +110,16 @@ song.pause();
 } 
 
     $('.play-icon').on('click', function() { //call toggleSong Function when play icon is clicked
-        toggleSong();
+
+        toggleSong(); //function call
     });
    $('body').on('keypress',function(event) {
     var target = event.target;
 
-    if (event.keyCode == 32 && target.tagName !='INPUT')
+    if (event.keyCode == 32 && target.tagName !='INPUT') //input should not be target.
+    //if both the condition will be satisfied then toggleSong fn will be called.
     {
-        toggleSong();
+        toggleSong(); //function call
     }
 });
   
@@ -138,24 +135,33 @@ song.pause();
     $('.song-duration').text(duration);
 }
         function changeCurrentSongDetails(songObj) {
-    $('.current-song-image').attr('src','img/' + songObj.image)
-    $('.current-song-name').text(songObj.name)
+    $('.current-song-image').attr('src','img/' + songObj.image) //chnge attr with image which is in Object Song.
+    $('.current-song-name').text(songObj.name) //fill text in current-song-name with object name in song.
     $('.current-song-album').text(songObj.album)
 }
-function timeJump() {
+/*function timeJump() {
     var song = document.querySelector('audio')
     song.currentTime = song.duration - 5;
-}
+} */
 function randomExcluded(min, max, excluded) {
     var n = Math.floor(Math.random() * (max-min) + min);
     if (n >= excluded) n++;
     return n;
 }
+// animation is created when current detail will change den animation will be called from css. with dely 10mm.
+function animationFadeInOut(){
+                $('#currentDetail').removeClass('animation');
+                        setTimeout(function(){
+                          $('#currentDetail').addClass('animation');
+                        },10);
+
+            }
         
             
             
             
             function addSongNameClickEvent(songObj,position) {
+            	
                 var songName = songObj.fileName; // New Variable 
                 var id = '#song' + position;
             $(id).click(function() {
@@ -163,12 +169,19 @@ function randomExcluded(min, max, excluded) {
             var currentSong = audio.src; //src of audio is stored in var currentSong
             if(currentSong.search(songName) != -1)  //will search for songName attr and call toggleSong function.
             {
+                
             toggleSong();
-            }
+            animationFadeInOut();  //function call
+            
+
+
+        }
             else {
             audio.src = songName;
+            
             toggleSong();
             changeCurrentSongDetails(songObj); // Function Call
+            animationFadeInOut();
             }
             });
             }
@@ -247,7 +260,7 @@ changeCurrentSongDetails(songs[Playingnumber])
 }
 
 $(".fa-step-forward").click(function(){
-
+animationFadeInOut(); //function call
 if(Playingnumber == songs.length-1){
 console.log("one");
 Playingnumber = 0;
@@ -259,6 +272,7 @@ changeSong();
 
 else {
 console.log("two");
+animationFadeInOut(); //function call
 console.log(Playingnumber);
   Playingnumber++;
 changeSong();
@@ -273,7 +287,7 @@ changeSong();
 
 
 $(".fa-step-backward").click(function(){
-
+animationFadeInOut();
 if(Playingnumber == 0){
 console.log("one");
 Playingnumber = (songs.length-1);
@@ -286,6 +300,7 @@ changeSong();
 
 else {
 console.log("two");
+animationFadeInOut();
 console.log(Playingnumber);
   Playingnumber--;
 changeSong();
@@ -299,6 +314,7 @@ changeSong();
             
                       
             window.onload = function() {
+
                 
             updateCurrentTime(); 
             setInterval(function() {
@@ -306,7 +322,26 @@ changeSong();
             },1000);
            
               
+                
+           
+           
 
+           setTimeout(function(){
+                       $('#first-page').addClass('animated fadeInLeft');
+                        },1000);
+
+           setTimeout(function(){
+                     $('#first-page').addClass('hidden');
+
+                   },1000);
+             
+             
+           setTimeout(function(){
+                       $('#main-page').removeClass('hidden');
+                   $('#main-page').addClass('animated fadeInRight');
+
+            },2000);
+                 
                  
                  for(var i =0; i < songs.length;i++) { 
         var obj = songs[i];
@@ -359,5 +394,4 @@ $(".contain").css("display","none");
 
 
 });
-
-      
+ 

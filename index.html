@@ -9,24 +9,22 @@
     <link rel="stylesheet" type="text/css" href="visual.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="main.css">
-    
+   <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Vollkorn" rel="stylesheet">
    
 </head>
 
 <body>
     <div class="wrapper">
-        <section class="welcome-screen">
-            <h1> Welcome to Songify </h1>
-            <h3> Enter name to access your account </h3>
-            <i class="fa fa-ravelry ani" aria-hidden="true" style="font-size: 150px; color: #4a5e7c; margin:30px 0 0 0;"></i>
+        <section class="welcome-screen" id="first_page">
+            <h1 class="animated infinite pulse"> Welcome to Songify </h1>
             <div class="input-wrapper">
-                <input type="text" placeholder="Name" name="username" id="name-input">
-
+               <img src = "img/giphy2.gif" class="img-responive" style="width: 100%;"  />
                 
-                <button id="animate"> Go </button>
+                
             </div>
         </section>
-        <div class="main hidden">
+        <div class="main hidden" id="main-page">
             <header>
                 <div class="right floated user-name"> </div>
             </header>
@@ -106,7 +104,7 @@
     </tbody></table>
 				
 			
-         <div class="current-song-wrapper">
+         <div class="current-song-wrapper" id="currentDetail">
         <img class="current-song-image">
         <div>
         <p class="current-song-name"></p>

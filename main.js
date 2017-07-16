@@ -83,19 +83,7 @@ function fancyTimeFormat(time) // it converts seconds into hours and minutes.
     return ret;
 }
 
-
-
-$('.fa-repeat').on('click',function() {
-    $('.fa-repeat').toggleClass('disabled')
-    willLoop = 1 - willLoop;
-});
-$('.fa-random').on('click',function() {
-    $('.fa-random').toggleClass('disabled')
-    willShuffle = 1 - willShuffle;
-});
-
-
-    function toggleSong() {
+function toggleSong() {
 var song = document.querySelector('audio'); 
 if(song.paused == true) {
 console.log('Playing');
@@ -108,8 +96,17 @@ $('.play-icon').removeClass('fa-pause').addClass('fa-play'); //if song is paused
 song.pause();
 }
 } 
+ function updateCurrentTime() {
+    var song = document.querySelector('audio');
+    var currentTime = Math.floor(song.currentTime); //current time of song is stored in variable currentTime
+    currentTime = fancyTimeFormat(currentTime); //current time of song will be converted into minutes which is fancyTimeFormat will be called
+    var duration = Math.floor(song.duration);
+    duration = fancyTimeFormat(duration) //duration will be converted into minutes.
+    $('.time-elapsed').text(currentTime); //will show how much song has been played
+    $('.song-duration').text(duration);
+}
 
-    $('.play-icon').on('click', function() { //call toggleSong Function when play icon is clicked
+  $('.play-icon').on('click', function() { //call toggleSong Function when play icon is clicked
 
         toggleSong(); //function call
     });
@@ -124,44 +121,55 @@ song.pause();
 });
   
 
+      function updateTimer(){
+var song = document.querySelector('audio');
+var ct =song.currentTime; 
+var td =song.duration;
+var percentage = (ct/td)*100; // %age of current and song duration
+$(".progress-filled").css('width',percentage+"%");  
 
-    function updateCurrentTime() {
-    var song = document.querySelector('audio');
-    var currentTime = Math.floor(song.currentTime); //current time of song is stored in variable currentTime
-    currentTime = fancyTimeFormat(currentTime); //current time of song will be converted into minutes which is fancyTimeFormat will be called
-    var duration = Math.floor(song.duration);
-    duration = fancyTimeFormat(duration) //duration will be converted into minutes.
-    $('.time-elapsed').text(currentTime); //will show how much song has been played
-    $('.song-duration').text(duration);
+
+
 }
-        function changeCurrentSongDetails(songObj) {
+
+
+$(".player-progress").click(function(event) {
+    var $this = $(this);
+
+    // to get part of width of progress bar clicked
+    var widthclicked = event.pageX - $this.offset().left;
+    var totalWidth = $this.width(); // can also be cached somewhere in the app if it doesn't change
+
+    // do calculation of the seconds clicked
+    var calc = (widthclicked / totalWidth) * 100 ; // get the percent of bar clicked and multiply in by the duration
+
+
+var song = document.querySelector('audio');
+song.currentTime = (song.duration*calc)/100;
+
+updateTimer();
+
+
+
+});
+function animationFadeInOut(){ // animation is created when current detail will change den animation will be called from css. with dely 10mm.
+                $('#currentDetail').removeClass('animation');
+                        setTimeout(function(){
+                          $('#currentDetail').addClass('animation');
+                        },10); 
+
+            }
+
+function changeCurrentSongDetails(songObj) {
     $('.current-song-image').attr('src','img/' + songObj.image) //chnge attr with image which is in Object Song.
     $('.current-song-name').text(songObj.name) //fill text in current-song-name with object name in song.
     $('.current-song-album').text(songObj.album)
 }
-/*function timeJump() {
-    var song = document.querySelector('audio')
-    song.currentTime = song.duration - 5;
-} */
-function randomExcluded(min, max, excluded) {
-    var n = Math.floor(Math.random() * (max-min) + min);
-    if (n >= excluded) n++;
-    return n;
-}
-// animation is created when current detail will change den animation will be called from css. with dely 10mm.
-function animationFadeInOut(){
-                $('#currentDetail').removeClass('animation');
-                        setTimeout(function(){
-                          $('#currentDetail').addClass('animation');
-                        },10);
 
-            }
-        
-            
-            
-            
-            function addSongNameClickEvent(songObj,position) {
-            	
+
+
+function addSongNameClickEvent(songObj,position) {
+                
                 var songName = songObj.fileName; // New Variable 
                 var id = '#song' + position;
             $(id).click(function() {
@@ -186,38 +194,42 @@ function animationFadeInOut(){
             });
             }
 
-            function updateTimer(){
-var song = document.querySelector('audio');
-var ct =song.currentTime; 
-var td =song.duration;
-var percentage = (ct/td)*100; // %age of current and song duration
-$(".progress-filled").css('width',percentage+"%");  
-
-
-
+             function changeSong() //we have made a machine jispe 2 buttons diye hai songName and position ke liye
+{
+var music =  songs[Playingnumber].fileName;
+var song = document.querySelector("audio");
+song.src = music;
+toggleSong();
+changeCurrentSongDetails(songs[Playingnumber])
 }
 
 
-
-$(".player-progress").click(function(event) {
-    var $this = $(this);
-
-    // to get part of width of progress bar clicked
-    var widthclicked = event.pageX - $this.offset().left;
-    var totalWidth = $this.width(); // can also be cached somewhere in the app if it doesn't change
-
-    // do calculation of the seconds clicked
-    var calc = (widthclicked / totalWidth) * 100 ; // get the percent of bar clicked and multiply in by the duration
-
-
-var song = document.querySelector('audio');
-song.currentTime = (song.duration*calc)/100;
-
-updateTimer();
-
-
-
+$('.fa-repeat').on('click',function() {
+    $('.fa-repeat').toggleClass('disabled')
+    willLoop = 1 - willLoop;
 });
+$('.fa-random').on('click',function() {
+    $('.fa-random').toggleClass('disabled')
+    willShuffle = 1 - willShuffle;
+});
+
+
+    
+  
+
+
+   
+        
+/*function timeJump() {
+    var song = document.querySelector('audio')
+    song.currentTime = song.duration - 5;
+} */
+function randomExcluded(min, max, excluded) {
+    var n = Math.floor(Math.random() * (max-min) + min);
+    if (n >= excluded) n++;
+    return n;
+}            
+        
              $('audio').on('ended',function() {
     var audio = document.querySelector('audio');
     if (willShuffle == 1) {
@@ -250,16 +262,66 @@ updateTimer();
     }
 });
 
-             function changeSong() //we have made a machine jispe 2 buttons diye hai songName and position ke liye
-{
-var music =  songs[Playingnumber].fileName;
-var song = document.querySelector("audio");
-song.src = music;
-toggleSong();
-changeCurrentSongDetails(songs[Playingnumber])
-}
+            
 
-$(".fa-step-forward").click(function(){
+
+
+
+
+
+            
+                      
+            window.onload = function() {
+           
+
+           setTimeout(function(){
+                       $('#first-page').addClass('animated fadeInLeft');
+                        },1000);
+
+           setTimeout(function(){
+                     $('#first-page').addClass('hidden');
+
+                   },1000);
+             
+             
+           setTimeout(function(){
+                       $('#main-page').removeClass('hidden');
+                   $('#main-page').addClass('animated fadeInRight');
+
+            },2000);
+                 
+                 changeCurrentSongDetails(songs[0]);
+                 
+                 for(var i =0; i < songs.length;i++) { 
+        var obj = songs[i];
+        var name = '#song' + (i+1);
+        var song = $(name);
+        song.find('.song-name').text(obj.name);
+        song.find('.song-artist').text(obj.artist);
+        song.find('.song-album').text(obj.album);
+        song.find('.song-length').text(obj.duration);
+        addSongNameClickEvent(obj,i+1);
+        
+
+    }
+      updateCurrentTime(); 
+            setInterval(function() {
+            updateCurrentTime();
+            },1000);
+           
+
+
+    $('#songs').DataTable({
+        paging: false
+    });     
+    
+  
+
+                }
+
+
+
+                $(".fa-step-forward").click(function(){
 animationFadeInOut(); //function call
 if(Playingnumber == songs.length-1){
 console.log("one");
@@ -283,10 +345,7 @@ changeSong();
 
 })
 
-
-
-
-$(".fa-step-backward").click(function(){
+                $(".fa-step-backward").click(function(){
 animationFadeInOut();
 if(Playingnumber == 0){
 console.log("one");
@@ -311,56 +370,7 @@ changeSong();
 
 })
 
-            
-                      
-            window.onload = function() {
 
-                
-            updateCurrentTime(); 
-            setInterval(function() {
-            updateCurrentTime();
-            },1000);
-           
-              
-                
-           
-           
-
-           setTimeout(function(){
-                       $('#first-page').addClass('animated fadeInLeft');
-                        },1000);
-
-           setTimeout(function(){
-                     $('#first-page').addClass('hidden');
-
-                   },1000);
-             
-             
-           setTimeout(function(){
-                       $('#main-page').removeClass('hidden');
-                   $('#main-page').addClass('animated fadeInRight');
-
-            },2000);
-                 
-                 
-                 for(var i =0; i < songs.length;i++) { 
-        var obj = songs[i];
-        var name = '#song' + (i+1);
-        var song = $(name);
-        song.find('.song-name').text(obj.name);
-        song.find('.song-artist').text(obj.artist);
-        song.find('.song-album').text(obj.album);
-        song.find('.song-length').text(obj.duration);
-        addSongNameClickEvent(obj,i+1);
-        changeCurrentSongDetails(songs[0]);
-
-    }$('#songs').DataTable({
-        paging: false
-    });     
-    
-  
-
-                }
 $(".fa-bar-chart").click(function(){
 
 $(this).toggleClass("active");
